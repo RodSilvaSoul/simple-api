@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": ["es6"],
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDirs": ["./src", "src/tests"],
+    "removeComments": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@domain/*": ["./src/domain/*"],
+      "@data/*": ["./src/data/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@main/*": ["./src/main/*"],
+      "@validation/*": ["./src/validation/*"],
+      "@tests/*": ["./src/tests/*"],
+      "@presentation/*":["./src/presentation/*"],
+    },
+    "baseUrl": "."
+  },
+  "include": ["./src/**/*"]
+}
