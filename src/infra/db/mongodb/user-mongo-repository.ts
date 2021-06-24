@@ -4,11 +4,11 @@ import {
   LoadUserByEmail,
   LoadUserByEmalResult,
   UpdateRefreshtokenRepository,
-  UpdateRefreshTokenParams
+  UpdateRefreshTokenParams,
+  AddUserRepositoryResult
 } from '@data/protocols/db'
 
 import { UserModel } from '@domain/models'
-import { AddUserResult } from '@domain/useCases'
 import { mongoHelper } from '@infra/db/mongodb/mongo-helper'
 
 export class UserMongoRepository
@@ -17,10 +17,10 @@ implements
     CheckUserByEmailRepository,
     LoadUserByEmail,
     UpdateRefreshtokenRepository {
-  async add (params: UserModel): Promise<AddUserResult> {
+  async add (params: UserModel): Promise<AddUserRepositoryResult> {
     const collection = await mongoHelper.getCollection('users')
     const result = await collection.insertOne(params)
-    return mongoHelper.map(result.ops[0]) as unknown as AddUserResult
+    return mongoHelper.map(result.ops[0]) as unknown as AddUserRepositoryResult
   }
 
   async checkUserByEmail (email: string): Promise<boolean> {

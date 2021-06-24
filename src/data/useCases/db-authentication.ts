@@ -23,8 +23,8 @@ export class DbAuthentication implements Authentication {
     const account = await this.loadUserByEmail.loadByEmail(params.email)
     if (account) {
       const isValid = await this.hashComparer.compare({
-        plaintText: account.password,
-        digest: params.password
+        plaintText: params.password,
+        digest: account.password
       })
       if (isValid) {
         const { id, email, firstName, lastName } = account

@@ -8,7 +8,7 @@ import {
 
 export const makeLoginValidation = ():TestSuite => {
   const validations:Validate[] = []
-  for (const field in ['email', 'password']) {
+  for (const field of ['email', 'password']) {
     validations.push(new RequiredFieldValidator(field))
   }
   validations.push(new EmailValidator('email', new EmailValidatorAdapter()))

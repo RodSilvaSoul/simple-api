@@ -4,14 +4,16 @@ import { UserModel } from '@domain/models'
 import {
   AddUserRepository,
   Hasher,
-  CheckUserByEmailRepository
+  CheckUserByEmailRepository,
+  JwtEncripter
 } from '@data/protocols'
 
 export class DbAddUser implements AddUser {
   constructor (
     private readonly addUserRepository: AddUserRepository,
     private readonly hasher: Hasher,
-    private readonly chekUserByEmailRepository: CheckUserByEmailRepository
+    private readonly chekUserByEmailRepository: CheckUserByEmailRepository,
+    private readonly jwtEncripter : JwtEncripter
   ) {}
 
   async add (params: UserModel): Promise<AddUserResult> {
@@ -22,7 +24,27 @@ export class DbAddUser implements AddUser {
         ...params,
         password: passowrdHash
       })
-      return newUser
+      const { email, firstName, lastName, id } = newUser
+
+      const { accesToken, refreshToken } = await this.jwtEncripter.encript({
+        email,
+        payload: {
+          id,
+          firstName,
+          lastName,
+          email
+        }
+      })
+
+      delete newUser.password
+
+      return {
+        ...newUser,
+        tokens: {
+          accesToken,
+          refreshToken
+        }
+      }
     }
     return null
   }

@@ -8,7 +8,7 @@ export const expressRouteAdapter = (controller: Controller) => {
       ...(req.params || {})
     }
     const httpResponse = await controller.handle(request)
-    console.log('expressRouteAdapter', httpResponse)
+
     if (httpResponse.statusCode >= 200 && httpResponse.statusCode < 300) {
       return res.status(httpResponse.statusCode).json(httpResponse.body)
     }

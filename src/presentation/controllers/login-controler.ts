@@ -1,7 +1,7 @@
 import { Authentication } from '@domain/useCases'
 import { badRequest, ok, serverError, unauthorizedError } from '@presentation/helpers/http-helper'
 import { mergerErros } from '@presentation/helpers/merger-erros'
-import { Controller, HttpResonse, TestSuite, Validate } from '@presentation/procols'
+import { Controller, HttpResonse, TestSuite } from '@presentation/procols'
 
 interface handleLoginContollerParams {
     email: string

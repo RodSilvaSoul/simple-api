@@ -1,7 +1,7 @@
 import { ServerError, UnauthorizedError } from '@presentation/errors'
 import { HttpResonse } from '@presentation/procols'
 
-export const badRequest = (error:string[]): HttpResonse => ({
+export const badRequest = (error:any): HttpResonse => ({
   statusCode: 400,
   body: error
 })
