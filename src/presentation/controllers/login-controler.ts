@@ -1,6 +1,7 @@
 import { Authentication } from '@domain/useCases'
 import { badRequest, ok, serverError, unauthorizedError } from '@presentation/helpers/http-helper'
-import { Controller, HttpResonse, Validate } from '@presentation/procols'
+import { mergerErros } from '@presentation/helpers/merger-erros'
+import { Controller, HttpResonse, TestSuite, Validate } from '@presentation/procols'
 
 interface handleLoginContollerParams {
     email: string
@@ -10,14 +11,14 @@ interface handleLoginContollerParams {
 export class LoginController implements Controller<handleLoginContollerParams> {
   constructor (
     private readonly authentication: Authentication,
-    private readonly validate: Validate
+    private readonly testSuie: TestSuite
   ) {}
 
   async handle (params: handleLoginContollerParams): Promise<HttpResonse> {
     try {
-      const error = this.validate.validate(params)
+      const error = this.testSuie.start(params)
       if (error) {
-        return badRequest(error)
+        return badRequest(mergerErros(error))
       }
 
       const tokens = await this.authentication.auth(params)

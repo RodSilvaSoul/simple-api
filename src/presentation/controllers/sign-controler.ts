@@ -1,23 +1,26 @@
-import { AddUser } from '@domain/useCases'
+import { AddUser, Authentication } from '@domain/useCases'
 import { UserModel } from '@domain/models'
-import { Controller, HttpResonse, Validate } from '@presentation/procols'
-import { badRequest, ok, serverError } from '@presentation/helpers'
+import { Controller, HttpResonse, TestSuite } from '@presentation/procols'
+import { badRequest, ok, serverError, mergerErros } from '@presentation/helpers'
 
 export class SignController implements Controller<UserModel> {
   constructor (
-    private readonly validate: Validate,
-    private readonly AddUser: AddUser
+    private readonly testSuie: TestSuite,
+    private readonly AddUser: AddUser,
+    private readonly authentication: Authentication
   ) {}
 
-  async handle (params:UserModel): Promise<HttpResonse> {
+  async handle (params: UserModel): Promise<HttpResonse> {
     try {
-      const error = this.validate.validate(params)
+      const error = this.testSuie.start(params)
       if (error) {
-        return badRequest(error)
+        return badRequest(mergerErros(error))
       }
 
       const newUser = await this.AddUser.add(params)
-      return ok(newUser)
+      const tokens = await this.authentication.auth(newUser)
+
+      return ok(tokens)
     } catch (error) {
       serverError(error)
     }

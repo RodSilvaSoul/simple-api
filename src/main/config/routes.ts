@@ -6,8 +6,6 @@ export const setUpRoutes = (app:Express):void => {
   const router = Router()
   app.use('/api', router)
   readdirSync(resolve(`${__dirname}`, '..', 'routes')).map(async file => {
-    if (file.endsWith('-router.ts')) {
-      (await import(`../routes/${file}`)).default(router)
-    }
+    (await import(`../routes/${file}`)).default(router)
   })
 }

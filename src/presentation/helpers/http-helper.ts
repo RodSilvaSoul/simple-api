@@ -1,19 +1,19 @@
 import { ServerError, UnauthorizedError } from '@presentation/errors'
 import { HttpResonse } from '@presentation/procols'
 
-export const badRequest = (error: Error): HttpResonse => ({
+export const badRequest = (error:string[]): HttpResonse => ({
   statusCode: 400,
   body: error
 })
 
 export const serverError = (error: Error): HttpResonse => ({
   statusCode: 500,
-  body: new ServerError(error.stack)
+  body: new ServerError(error.stack).message
 })
 
 export const unauthorizedError = (): HttpResonse => ({
   statusCode: 401,
-  body: new UnauthorizedError()
+  body: new UnauthorizedError().message
 })
 
 export const ok = (body:any) : HttpResonse => ({

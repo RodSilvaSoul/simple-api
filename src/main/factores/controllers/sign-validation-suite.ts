@@ -1,17 +1,17 @@
 import {
   EmailValidator,
-  ValidationComposite,
+  ValidationSuite,
   RequiredFieldValidator
 } from '@validation/validators'
 
-import { Validate } from '@presentation/procols'
+import { TestSuite, Validate } from '@presentation/procols'
 import { EmailValidatorAdapter } from '@infra/validation'
 
-export const makeSignValidation = (): ValidationComposite => {
+export const makeSignValidation = (): TestSuite => {
   const validations: Validate[] = []
-  for (const field in ['firstName', 'lastName', 'email', 'password']) {
+  for (const field of ['firstName', 'lastName', 'email', 'password']) {
     validations.push(new RequiredFieldValidator(field))
   }
   validations.push(new EmailValidator('email', new EmailValidatorAdapter()))
-  return new ValidationComposite(validations)
+  return new ValidationSuite(validations)
 }
