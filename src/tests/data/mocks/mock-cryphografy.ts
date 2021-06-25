@@ -1,4 +1,4 @@
-import { Hasher } from '@data/protocols/cryptografy'
+import { Hasher, JwtEncripter, JwtEncripterParams, JwtEncripterResult } from '@data/protocols/cryptografy'
 
 import faker from 'faker'
 

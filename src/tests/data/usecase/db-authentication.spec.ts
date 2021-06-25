@@ -58,8 +58,8 @@ describe('DbAuthentication useCase', () => {
     const accounParams = makeAuthenticationParams()
     await sut.auth(accounParams)
     expect(hashComparerSpy.params).toEqual({
-      plaintText: loadUserByEmailSpy.result.password,
-      digest: accounParams.password
+      plaintText: accounParams.password,
+      digest: loadUserByEmailSpy.result.password
     })
   })
 

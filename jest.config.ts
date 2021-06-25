@@ -1,7 +1,7 @@
-const { compilerOptions } = require('./tsconfig.json')
-const { pathsToModuleNameMapper } = require('ts-jest/utils')
+import { compilerOptions } from './tsconfig.json'
+import { pathsToModuleNameMapper } from 'ts-jest/utils'
 
-module.exports = {
+export default {
   preset: '@shelf/jest-mongodb',
   testEnvironment: 'node',
   roots: ['<rootDir>/src/tests'],

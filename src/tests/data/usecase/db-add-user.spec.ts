@@ -2,7 +2,8 @@ import { DbAddUser } from '@data/useCases'
 import {
   AddUserRepositorySpy,
   CheckUserByEmailRepositorySpy,
-  HasherSpy
+  HasherSpy,
+  JwtEncripterSpy
 } from '@tests/data/mocks'
 import { makeAddAccountParans } from '@tests/domain/mocks'
 import { throwError } from '@tests/domain/mocks/test-helpers'
@@ -18,10 +19,12 @@ const makeSut = (): TypeSut => {
   const addUserRepositorySpy = new AddUserRepositorySpy()
   const checkUserByEmailRepositorySpy = new CheckUserByEmailRepositorySpy()
   const hasherSpy = new HasherSpy()
+  const jwtEncripterSpy = new JwtEncripterSpy()
   const sut = new DbAddUser(
     addUserRepositorySpy,
     hasherSpy,
-    checkUserByEmailRepositorySpy
+    checkUserByEmailRepositorySpy,
+    jwtEncripterSpy
   )
 
   return {

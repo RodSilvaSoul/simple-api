@@ -11,12 +11,12 @@ interface handleLoginContollerParams {
 export class LoginController implements Controller<handleLoginContollerParams> {
   constructor (
     private readonly authentication: Authentication,
-    private readonly testSuie: TestSuite
+    private readonly testSuite: TestSuite
   ) {}
 
   async handle (params: handleLoginContollerParams): Promise<HttpResonse> {
     try {
-      const error = this.testSuie.start(params)
+      const error = await this.testSuite.start(params)
       if (error) {
         return badRequest(mergerErros(error))
       }

@@ -3,15 +3,15 @@ import { TestSuite, Validate } from '@presentation/procols'
 export class ValidationSuite implements TestSuite {
   constructor (private readonly validators: Validate[]) {}
 
-  start (input: any): Error[] {
-    const erros = this.validators.map((test) => {
+  async start (input: any): Promise<Error[] | null> {
+    const erros: Error[] = []
+    for (const test of this.validators) {
       const error = test.validate(input)
       if (error) {
-        return error
+        erros.push(error)
       }
-      return null
-    })
-    const existsSomeError = erros.some(error => error instanceof Error)
+    }
+    const existsSomeError = erros.length > 0
     if (existsSomeError) {
       return erros
     }

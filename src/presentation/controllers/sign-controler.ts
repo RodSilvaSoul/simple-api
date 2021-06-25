@@ -12,7 +12,7 @@ export class SignController implements Controller<UserModel> {
 
   async handle (params: UserModel): Promise<HttpResonse> {
     try {
-      const error = this.testSuie.start(params)
+      const error = await this.testSuie.start(params)
       if (error) {
         return badRequest(mergerErros(error))
       }
@@ -25,7 +25,7 @@ export class SignController implements Controller<UserModel> {
 
       return ok(tokens)
     } catch (error) {
-      serverError(error)
+      return serverError(error)
     }
   }
 }

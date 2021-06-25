@@ -1,15 +1,14 @@
-import { AddUserRepository, CheckUserByEmailRepository } from '@data/protocols'
+import { AddUserRepository, AddUserRepositoryResult, CheckUserByEmailRepository } from '@data/protocols'
 import { UserModel } from '@domain/models'
-import { AddUserResult } from '@domain/useCases'
 
 import faker from 'faker'
 
 export class AddUserRepositorySpy implements AddUserRepository {
   params: UserModel
-  result: AddUserResult
-  async add (params: UserModel): Promise<AddUserResult> {
+  result: AddUserRepositoryResult
+  async add (params: UserModel): Promise<AddUserRepositoryResult> {
     this.params = params
-    const res = {
+    const res: AddUserRepositoryResult = {
       ...params,
       id: faker.datatype.uuid()
     }
